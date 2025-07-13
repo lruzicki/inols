@@ -174,7 +174,7 @@ export default function HomePage() {
       try {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/events`)
         if (response.ok) {
-          const data = await response.json()
+        const data = await response.json()
           // Pobierz najnowsze wydarzenie (pierwsze z listy)
           if (data && data.length > 0) {
             setEventData(data[0])
@@ -383,14 +383,14 @@ export default function HomePage() {
                     </div>
 
                     {eventData.fee && (
-                      <div className="flex justify-between items-center mb-4 p-3 bg-green-50 rounded-lg">
-                        <div>
-                          <span className="text-sm text-gray-600">{t("upcomingEvents.pricing")}</span>
-                          <div className="font-semibold text-green-700">
+                    <div className="flex justify-between items-center mb-4 p-3 bg-green-50 rounded-lg">
+                      <div>
+                        <span className="text-sm text-gray-600">{t("upcomingEvents.pricing")}</span>
+                        <div className="font-semibold text-green-700">
                             {eventData.fee} zł
-                          </div>
                         </div>
                       </div>
+                    </div>
                     )}
 
                     <div className="flex items-center gap-3 mb-4 text-sm text-gray-600">
@@ -537,12 +537,12 @@ export default function HomePage() {
                       </span>
                     </div>
                     {eventData.registration_deadline && (
-                      <div className="flex items-center gap-3">
-                        <Clock className="h-4 w-4 text-gray-500" />
-                        <span>
+                    <div className="flex items-center gap-3">
+                      <Clock className="h-4 w-4 text-gray-500" />
+                      <span>
                           Deadline rejestracji: {eventData.registration_deadline}
-                        </span>
-                      </div>
+                      </span>
+                    </div>
                     )}
                   </div>
                 </CardContent>
@@ -565,7 +565,7 @@ export default function HomePage() {
                   </div>
                 </CardContent>
               </Card>
-            </div>
+                      </div>
           </div>
         </div>
       </section>
@@ -580,15 +580,15 @@ export default function HomePage() {
 
           <div className="max-w-6xl mx-auto">
             <Card className="overflow-hidden">
-              <CardHeader>
+                <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <FileText className="h-5 w-5 text-green-600" />
                   Karta startowa
-                </CardTitle>
+                  </CardTitle>
                 <CardDescription>
                   Zasady jak wypełnić kartę startową
                 </CardDescription>
-              </CardHeader>
+                </CardHeader>
               <CardContent className="p-0">
                 <div className="h-[800px] w-full">
                   <iframe
@@ -596,7 +596,7 @@ export default function HomePage() {
                     className="w-full h-full border-0"
                     title="Karta startowa PDF"
                   />
-                </div>
+                    </div>
                 <div className="p-6 bg-gray-50 border-t">
                   <div className="flex justify-between items-center">
                     <p className="text-sm text-gray-600">
@@ -610,10 +610,10 @@ export default function HomePage() {
                       <Download className="h-4 w-4" />
                       Pobierz PDF
                     </Button>
+                    </div>
                   </div>
-                </div>
-              </CardContent>
-            </Card>
+                </CardContent>
+              </Card>
           </div>
         </div>
       </section>
@@ -677,7 +677,7 @@ export default function HomePage() {
                       </TabsTrigger>
                     )
                   })}
-                </TabsList>
+              </TabsList>
 
                 {latestEvents.slice(0, 3).map((event) => {
                   const eventDate = new Date(event.date)
@@ -690,22 +690,22 @@ export default function HomePage() {
                   
                   return (
                     <TabsContent key={event.id} value={`event-${event.id}`} className="mt-8">
-                      <Card>
-                        <CardHeader>
-                          <CardTitle className="flex items-center gap-2">
-                            <Trophy className="h-5 w-5 text-yellow-500" />
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2">
+                      <Trophy className="h-5 w-5 text-yellow-500" />
                             {event.name} - Wyniki
-                          </CardTitle>
+                    </CardTitle>
                           <CardDescription>
                             {formattedDate} w {event.location}
                           </CardDescription>
-                        </CardHeader>
-                        <CardContent>
+                  </CardHeader>
+                  <CardContent>
                           {!results || Object.keys(results).length === 0 ? (
                             <div className="text-center py-8">
                               <Trophy className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                               <p className="text-gray-500 text-lg">Wyniki jeszcze nieopublikowane</p>
-                            </div>
+                        </div>
                           ) : (
                             <div className="space-y-6">
                               {Object.entries(results).map(([category, categoryResults]: [string, any]) => (
@@ -721,7 +721,7 @@ export default function HomePage() {
                                           index === 2 ? 'bg-orange-50' : 'bg-blue-50'
                                         }`}
                                       >
-                                        <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-4">
                                           <Badge 
                                             className={
                                               index === 0 ? 'bg-yellow-500' : 
@@ -732,14 +732,14 @@ export default function HomePage() {
                                             {index + 1}
                                           </Badge>
                                           <span className="font-semibold">{result.team}</span>
-                                        </div>
+                        </div>
                                         <span className="text-gray-600">{result.penalty_points} pkt</span>
-                                      </div>
+                      </div>
                                     ))}
-                                  </div>
-                                </div>
+                        </div>
+                      </div>
                               ))}
-                            </div>
+                    </div>
                           )}
                           
                           <div className="mt-6">
@@ -753,16 +753,16 @@ export default function HomePage() {
                               }}
                               disabled={!results || Object.keys(results).length === 0}
                             >
-                              <Download className="h-4 w-4" />
-                              {t("results.downloadResults")}
-                            </Button>
-                          </div>
-                        </CardContent>
-                      </Card>
-                    </TabsContent>
+                        <Download className="h-4 w-4" />
+                        {t("results.downloadResults")}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </TabsContent>
                   )
                 })}
-              </Tabs>
+            </Tabs>
             ) : (
               <div className="text-center py-12">
                 <Trophy className="h-12 w-12 mx-auto mb-4 text-gray-300" />

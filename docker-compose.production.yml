@@ -39,13 +39,14 @@ services:
     build: ./inols
     container_name: inols_frontend
     expose:
-      - "3000"
+      - "3001"
     env_file:
       - ./inols/.env.local
     environment:
       NEXTAUTH_URL: https://ino.lesnaszkolka.org
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
       NEXT_PUBLIC_API_URL: https://ino.lesnaszkolka.org
+      PORT: 3001
     depends_on:
       - api
     networks:
