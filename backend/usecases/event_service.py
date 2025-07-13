@@ -32,4 +32,20 @@ class EventService:
     
     def get_event_by_id(self, event_id: int) -> Optional[Event]:
         """Pobiera wydarzenie po ID"""
-        return self.event_repository.get_by_id(event_id) 
+        return self.event_repository.get_by_id(event_id)
+    
+    def update_event(self, event_id: int, event: Event) -> Optional[Event]:
+        """Aktualizuje wydarzenie"""
+        # Sprawdź czy wydarzenie istnieje
+        existing_event = self.event_repository.get_by_id(event_id)
+        if not existing_event:
+            return None
+        
+        # Ustaw ID dla aktualizacji
+        event.id = event_id
+        
+        # Tutaj moglibyśmy dodać walidację biznesową
+        if not event.name:
+            raise ValueError("Nazwa wydarzenia jest wymagana")
+        
+        return self.event_repository.update(event) 

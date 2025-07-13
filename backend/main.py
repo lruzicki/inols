@@ -226,6 +226,62 @@ def list_all_events(
         for event in events
     ]
 
+@app.put("/events/{event_id}", response_model=EventResponse)
+async def update_event(
+    event_id: int,
+    event_data: EventCreate,
+    event_service: EventService = Depends(get_event_service)
+    # current_user: User = Depends(require_roles(["admin", "organizer"]))  # Tymczasowo wyłączone
+):
+    """Aktualizuje wydarzenie (wymaga roli admin lub organizer)"""
+    try:
+        # Konwertuj stringi na datetime dla domain object
+        event_date = datetime.strptime(event_data.date, "%Y-%m-%d")
+        registration_deadline = None
+        if event_data.registration_deadline:
+            registration_deadline = datetime.strptime(event_data.registration_deadline, "%Y-%m-%d")
+        
+        # Konwertuj Pydantic model na domain object
+        event = Event(
+            name=event_data.name,
+            date=event_date,
+            categories=event_data.categories,
+            location=event_data.location,
+            start_point_url=event_data.start_point_url,
+            start_time=event_data.start_time,
+            fee=event_data.fee,
+            registration_deadline=registration_deadline,
+            registered_participants=event_data.registered_participants or 0,
+            google_maps_url=event_data.google_maps_url,
+            google_drive_url=event_data.google_drive_url
+        )
+        
+        updated_event = event_service.update_event(event_id, event)
+        
+        if not updated_event:
+            raise HTTPException(status_code=404, detail="Wydarzenie nie zostało znalezione")
+        
+        # Konwertuj z powrotem na response model
+        return EventResponse(
+            id=updated_event.id,
+            name=updated_event.name,
+            date=updated_event.date.strftime("%Y-%m-%d"),
+            categories=updated_event.categories,
+            location=updated_event.location,
+            start_point_url=updated_event.start_point_url,
+            start_time=updated_event.start_time,
+            fee=updated_event.fee,
+            registration_deadline=updated_event.registration_deadline.strftime("%Y-%m-%d") if updated_event.registration_deadline else None,
+            registered_participants=updated_event.registered_participants,
+            google_maps_url=updated_event.google_maps_url,
+            google_drive_url=updated_event.google_drive_url,
+            deleted=updated_event.deleted,
+            created_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+            updated_at=datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        )
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+
 @app.delete("/events/{event_id}")
 def delete_event(
     event_id: int,

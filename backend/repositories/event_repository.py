@@ -59,6 +59,31 @@ class SqlAlchemyEventRepository:
         event = self.db.query(EventModel).filter(EventModel.id == event_id, EventModel.deleted == False).first()
         return self._to_domain(event) if event else None
     
+    def update(self, event: Event) -> Event:
+        """Aktualizuje wydarzenie w bazie danych"""
+        db_event = self.db.query(EventModel).filter(EventModel.id == event.id).first()
+        if not db_event:
+            raise ValueError(f"Wydarzenie o ID {event.id} nie zostało znalezione")
+        
+        # Aktualizuj pola
+        db_event.name = event.name
+        db_event.date = event.date
+        db_event.categories = json.dumps(event.categories)
+        db_event.location = event.location
+        db_event.start_point_url = event.start_point_url
+        db_event.start_time = event.start_time
+        db_event.fee = event.fee
+        db_event.registration_deadline = event.registration_deadline
+        db_event.registered_participants = event.registered_participants
+        db_event.google_maps_url = event.google_maps_url
+        db_event.google_drive_url = event.google_drive_url
+        
+        self.db.commit()
+        self.db.refresh(db_event)
+        
+        # Konwertuj z powrotem na domain object
+        return self._to_domain(db_event)
+    
     def _to_domain(self, db_event: EventModel) -> Event:
         """Konwertuje model bazy danych na domain object"""
         return Event(
