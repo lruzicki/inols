@@ -36,22 +36,8 @@ app.add_middleware(
         "https://test.lesnaszkolka.org"
     ],  # Frontend URLs
     allow_credentials=True,
-    allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],  # Wszystkie metody HTTP
-    allow_headers=[
-        "Accept",
-        "Accept-Language",
-        "Content-Language",
-        "Content-Type",
-        "Authorization",
-        "X-Requested-With",
-        "Origin",
-        "User-Agent",
-        "Referer",
-        "Cache-Control",
-        "Pragma"
-    ],  # Wszystkie nagłówki
-    expose_headers=["Content-Length", "Content-Type"],
-    max_age=86400,  # Cache preflight requests for 24 hours
+    allow_methods=["*"],  # Wszystkie metody HTTP
+    allow_headers=["*"],  # Wszystkie nagłówki
 )
 
 # Tworzenie tabel przy starcie
