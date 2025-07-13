@@ -44,18 +44,13 @@ services:
       - ./inols/.env.local
     environment:
       NEXTAUTH_URL: https://ino.lesnaszkolka.org
-      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-default_secret_change_me}
       NEXT_PUBLIC_API_URL: https://ino.lesnaszkolka.org
       PORT: 3001
     depends_on:
       - api
     networks:
       - ino_network
-    volumes:
-      - ./inols:/app
-      - /app/node_modules
-      - /app/.next
-    command: npm run dev
     restart: unless-stopped
 
   # Next.js Frontend (lsapka)
@@ -67,16 +62,12 @@ services:
     env_file:
       - ./lsapka/.env.local
     environment:
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-default_secret_change_me}
       PORT: 3000
     depends_on:
       - api
     networks:
       - ino_network
-    volumes:
-      - ./lsapka:/app
-      - /app/node_modules
-      - /app/.next
-    command: npm run dev
     restart: unless-stopped
 
   # Nginx Reverse Proxy

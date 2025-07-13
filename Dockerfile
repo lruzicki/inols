@@ -15,8 +15,11 @@ COPY . .
 EXPOSE 3001
 
 # Set environment variables
-ENV NODE_ENV=development
+ENV NODE_ENV=production
 ENV PORT=3001
 
-# Run application in development mode
-CMD ["npm", "run", "dev"] 
+# Build the application
+RUN npm run build
+
+# Run application in production mode
+CMD ["npm", "start"] 
