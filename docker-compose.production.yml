@@ -63,9 +63,11 @@ services:
     build: ./lsapka
     container_name: lsapka_frontend
     expose:
-      - "3001"
+      - "3000"
     env_file:
       - ./lsapka/.env.local
+    environment:
+      PORT: 3000
     depends_on:
       - api
     networks:
