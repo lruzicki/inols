@@ -172,17 +172,68 @@ export default function HomePage() {
   useEffect(() => {
     const loadEventData = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/events`)
+        console.log("Loading event data...")
+        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/events`
+        console.log("API URL:", apiUrl)
+        
+        const response = await fetch(apiUrl, {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+        })
+        console.log("Response status:", response.status)
+        
         if (response.ok) {
-        const data = await response.json()
+          const data = await response.json()
+          console.log("Event data loaded:", data)
           // Pobierz najnowsze wydarzenie (pierwsze z listy)
           if (data && data.length > 0) {
             setEventData(data[0])
             setLatestEvents(data)
           }
+        } else {
+          console.error("API response not ok:", response.status, response.statusText)
+          // Fallback to static data if API fails
+          setEventData({
+            id: 1,
+            name: "Przykładowe wydarzenie",
+            date: "2024-01-01",
+            categories: ["Open", "Junior"],
+            location: "Las miejski",
+            start_point_url: "#",
+            start_time: "10:00",
+            fee: 20,
+            registration_deadline: "2023-12-31",
+            registered_participants: 50,
+            google_maps_url: "#",
+            google_drive_url: "#",
+            deleted: false,
+            created_at: "2024-01-01",
+            updated_at: "2024-01-01"
+          })
         }
       } catch (error) {
         console.error("Error loading event data:", error)
+        // Fallback to static data if API fails
+        setEventData({
+          id: 1,
+          name: "Przykładowe wydarzenie",
+          date: "2024-01-01",
+          categories: ["Open", "Junior"],
+          location: "Las miejski",
+          start_point_url: "#",
+          start_time: "10:00",
+          fee: 20,
+          registration_deadline: "2023-12-31",
+          registered_participants: 50,
+          google_maps_url: "#",
+          google_drive_url: "#",
+          deleted: false,
+          created_at: "2024-01-01",
+          updated_at: "2024-01-01"
+        })
       } finally {
         setLoading(false)
       }
@@ -244,7 +295,14 @@ export default function HomePage() {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <p className="text-red-600">{t("common.error")}</p>
+          <p className="text-red-600 mb-4">{t("common.error")}</p>
+          <p className="text-gray-600 text-sm">Nie można załadować danych wydarzeń</p>
+          <button 
+            onClick={() => window.location.reload()} 
+            className="mt-4 px-4 py-2 bg-green-600 text-white rounded hover:bg-green-700"
+          >
+            Odśwież stronę
+          </button>
         </div>
       </div>
     )
