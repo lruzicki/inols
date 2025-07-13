@@ -11,6 +11,9 @@ RUN npm ci
 # Copy application code
 COPY . .
 
+# Copy environment files
+COPY .env.local .env.local
+
 # Expose port
 EXPOSE 3001
 
