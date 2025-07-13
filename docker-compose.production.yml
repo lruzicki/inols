@@ -1,0 +1,82 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database (wspólny dla obu aplikacji)
+  postgres:
+    image: postgres:15
+    container_name: ino_postgres
+    environment:
+      POSTGRES_DB: ino_db
+      POSTGRES_USER: ino_user
+      POSTGRES_PASSWORD: ino_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ino_network
+    restart: unless-stopped
+
+  # FastAPI Backend (inols)
+  api:
+    build: ./inols/backend
+    container_name: ino_api
+    expose:
+      - "8000"
+    environment:
+      DATABASE_URL: postgresql://ino_user:ino_password@postgres:5432/ino_db
+    depends_on:
+      - postgres
+    networks:
+      - ino_network
+    volumes:
+      - ./inols/backend:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    env_file:
+      - ./inols/backend/.env
+    restart: unless-stopped
+
+  # Next.js Frontend (inols)
+  web:
+    build: ./inols
+    container_name: ino_frontend
+    expose:
+      - "3000"
+    env_file:
+      - ./inols/.env.local
+    environment:
+      NEXTAUTH_URL: https://ino.lesnaszkolka.org
+      NEXTAUTH_SECRET: ${NEXTAUTH_SECRET}
+      NEXT_PUBLIC_API_URL: https://ino.lesnaszkolka.org
+    depends_on:
+      - api
+    networks:
+      - ino_network
+    volumes:
+      - ./inols:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev
+    restart: unless-stopped
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: ino_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
+      - /etc/letsencrypt:/etc/letsencrypt:ro
+    depends_on:
+      - web
+      - api
+    networks:
+      - ino_network
+    restart: unless-stopped
+
+volumes:
+  postgres_data:
+
+networks:
+  ino_network:
+    driver: bridge 

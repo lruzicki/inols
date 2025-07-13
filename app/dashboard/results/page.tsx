@@ -69,7 +69,7 @@ export default function ResultsPage() {
 
   const fetchEvents = async () => {
     try {
-      const response = await fetch("http://localhost:8000/events/all")
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/events/all`)
       if (response.ok) {
         const data = await response.json()
         setEvents(data)
@@ -86,7 +86,7 @@ export default function ResultsPage() {
 
   const fetchResults = async (eventId: number) => {
     try {
-      const response = await fetch(`http://localhost:8000/results/${eventId}`)
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/results/${eventId}`)
       if (response.ok) {
         const data = await response.json()
         setResultsGrid(data)
@@ -120,7 +120,7 @@ export default function ResultsPage() {
       }
       
       // Wyślij wszystkie wyniki na raz (nadpisze istniejące)
-      const response = await fetch(`http://localhost:8000/results/${selectedEvent}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/results/${selectedEvent}`, {
         method: "PUT",
         headers,
         body: JSON.stringify(cleanResultsGrid),
@@ -151,7 +151,7 @@ export default function ResultsPage() {
         headers["Authorization"] = `Bearer ${(session as any).accessToken}`
       }
       
-      const response = await fetch("http://localhost:8000/results", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/results`, {
         method: "POST",
         headers,
         body: JSON.stringify({
@@ -183,7 +183,7 @@ export default function ResultsPage() {
         headers["Authorization"] = `Bearer ${(session as any).accessToken}`
       }
       
-      const response = await fetch(`http://localhost:8000/results/${resultId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/results/${resultId}`, {
         method: "DELETE",
         headers,
       })

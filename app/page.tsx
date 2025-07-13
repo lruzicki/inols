@@ -172,7 +172,7 @@ export default function HomePage() {
   useEffect(() => {
     const loadEventData = async () => {
       try {
-        const response = await fetch("http://localhost:8000/events")
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/events`)
         if (response.ok) {
           const data = await response.json()
           // Pobierz najnowsze wydarzenie (pierwsze z listy)
@@ -199,7 +199,7 @@ export default function HomePage() {
       try {
         const resultsPromises = latestEvents.map(async (event) => {
           try {
-            const response = await fetch(`http://localhost:8000/results/${event.id}`)
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/results/${event.id}`)
             if (response.ok) {
               const data = await response.json()
               return { eventId: event.id, results: data }

@@ -73,7 +73,7 @@ export default function EventsPage() {
         headers["Authorization"] = `Bearer ${(session as any).accessToken}`
       }
       
-      const response = await fetch("http://localhost:8000/events/all", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/events/all`, {
         headers
       })
       if (response.ok) {
@@ -92,8 +92,8 @@ export default function EventsPage() {
     
     try {
       const url = editingEvent 
-        ? `http://localhost:8000/events/${editingEvent.id}` 
-        : "http://localhost:8000/events"
+        ? `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/events/${editingEvent.id}` 
+        : `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/events`
       
       const method = editingEvent ? "PUT" : "POST"
       
@@ -152,7 +152,7 @@ export default function EventsPage() {
         headers["Authorization"] = `Bearer ${(session as any).accessToken}`
       }
       
-      const response = await fetch(`http://localhost:8000/events/${eventId}`, {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/events/${eventId}`, {
         method: "DELETE",
         headers,
       })

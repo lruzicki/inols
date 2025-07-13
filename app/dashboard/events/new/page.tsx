@@ -77,7 +77,7 @@ export default function NewEventPage() {
       
       console.log("Request headers:", headers)
       
-      const response = await fetch("http://localhost:8000/events", {
+      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/events`, {
         method: "POST",
         headers,
         body: JSON.stringify(formData),
