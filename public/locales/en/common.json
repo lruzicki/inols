@@ -1,0 +1,106 @@
+{
+  "nav": {
+    "urgent": "URGENT",
+    "about": "ABOUT US",
+    "teams": "TEAMS",
+    "gallery": "GALLERY",
+    "contact": "CONTACT",
+    "documents": "DOCUMENTS"
+  },
+  "hero": {
+    "title": "Discover Your Path with INO",
+    "subtitle": "Join Poland's premier orienteering events and explore nature like never before",
+    "cta": "See Upcoming Events"
+  },
+  "upcomingEvents": {
+    "title": "Upcoming Adventure",
+    "subtitle": "Join our next orienteering event and challenge yourself",
+    "pricing": "Pricing:",
+    "general": "General",
+    "scouts": "Scouts & U16",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "detailsRegistration": "Details & Registration"
+  },
+  "registrationSummary": {
+    "peopleSignedUp": "People already signed up!",
+    "viewRegistrations": "View All Registrations"
+  },
+  "startingInfo": {
+    "title": "Event Starting Information",
+    "subtitle": "Everything you need to know about the event start",
+    "startingLocation": "Starting Location",
+    "dateTime": "Date & Time",
+    "registration": "Registration",
+    "eventStart": "Event Start",
+    "eventSchedule": "Event Schedule",
+    "eventDescription": "Event Description"
+  },
+  "rules": {
+    "title": "Rules of Playing",
+    "subtitle": "Important guidelines for all participants",
+    "competitionRules": "Competition Rules",
+    "basicRules": "Basic Rules:",
+    "safetyRequirements": "Safety Requirements:",
+    "scoring": "Scoring:",
+    "navigationEquipment": "Navigation Equipment",
+    "navigationDesc": "Map reading and compass use",
+    "checkpointSystem": "Checkpoint System",
+    "checkpointDesc": "Finding and marking control points"
+  },
+  "archive": {
+    "title": "Event Archive",
+    "subtitle": "Browse photos and memories from past events",
+    "viewPhotos": "View Photos",
+    "people": "people",
+    "pastEvents": "Past Events",
+    "totalParticipants": "Total Participants",
+    "yearsOfAdventures": "Years of Adventures",
+    "loading": "Loading archive...",
+    "noEvents": "No archive events found."
+  },
+  "registration": {
+    "title": "Ready to Join?",
+    "howToRegister": "How to Register:",
+    "registerNow": "Register Now",
+    "loginManage": "Log In / Manage Registration"
+  },
+  "results": {
+    "title": "Event Results",
+    "subtitle": "Check out results from our recent orienteering events",
+    "mostRecent": "Most Recent",
+    "downloadResults": "Download Full Results (PDF)",
+    "viewParticipants": "View All Participants",
+    "resultsPlaceholder": "event results will be displayed here..."
+  },
+  "about": {
+    "title": "About INO",
+    "subtitle": "Discover the world of orienteering with us",
+    "whatIsIno": "What is INO?",
+    "whatIsInoDesc": "INO (Impreza na Orientację) is Poland's premier orienteering event series, combining navigation skills with outdoor adventure in beautiful natural settings.",
+    "howItWorks": "How it Works",
+    "howItWorksDesc": "Using map and compass, participants navigate through checkpoints in forests, parks, and urban areas. It's a perfect blend of physical activity and mental challenge.",
+    "whyJoin": "Why Join?",
+    "whyJoinDesc": "Improve your navigation skills, explore new places, meet like-minded adventurers, and challenge yourself in a supportive community environment."
+  },
+  "footer": {
+    "contactUs": "Contact Us",
+    "quickLinks": "Quick Links",
+    "events": "Events",
+    "results": "Results",
+    "about": "About",
+    "register": "Register",
+    "followUs": "Follow Us",
+    "newsletter": "Newsletter",
+    "newsletterDesc": "Stay updated with our latest events",
+    "subscribe": "Subscribe",
+    "copyright": "© 2024 INO - Impreza na Orientację. All rights reserved.",
+    "emailPlaceholder": "Your email"
+  },
+  "common": {
+    "loading": "Loading event data...",
+    "error": "Error loading event data",
+    "clickToZoom": "Click to enable zoom"
+  }
+}

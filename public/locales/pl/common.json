@@ -1,0 +1,105 @@
+{
+  "nav": {
+    "about": "O NAS",
+    "teams": "DRUŻYNY",
+    "gallery": "GALERIA",
+    "contact": "KONTAKT",
+    "documents": "DOKUMENTY"
+  },
+  "hero": {
+    "title": "Impreza na Orientację",
+    "subtitle": "Dołącz do naszych przygód w terenie",
+    "cta": "Zapisz się"
+  },
+  "upcomingEvents": {
+    "title": "Nadchodzące wydarzenia",
+    "subtitle": "Dołącz do naszych przygód",
+    "pricing": "Cennik:",
+    "general": "Ogólny",
+    "scouts": "Harcerze",
+    "days": "dni",
+    "hours": "godziny",
+    "minutes": "minuty",
+    "detailsRegistration": "Szczegóły i rejestracja"
+  },
+  "registrationSummary": {
+    "peopleSignedUp": "osób zarejestrowanych",
+    "viewRegistrations": "Zobacz rejestracje"
+  },
+  "startingInfo": {
+    "title": "Informacje startowe",
+    "subtitle": "Wszystko co musisz wiedzieć",
+    "startingLocation": "Lokalizacja startu",
+    "dateTime": "Data i czas",
+    "registration": "Rejestracja",
+    "eventStart": "Start wydarzenia",
+    "eventSchedule": "Harmonogram wydarzenia",
+    "eventDescription": "Opis wydarzenia"
+  },
+  "rules": {
+    "title": "Zasady i regulami",
+    "subtitle": "Poznaj zasady uczestnictwa",
+    "competitionRules": "Zasady zawodów",
+    "basicRules": "Podstawowe zasady",
+    "safetyRequirements": "Wymagania bezpieczeństwa",
+    "scoring": "System punktacji",
+    "navigationEquipment": "Sprzęt nawigacyjny",
+    "navigationDesc": "Mapy, kompasy i urządzenia GPS",
+    "checkpointSystem": "System punktów kontrolnych",
+    "checkpointDesc": "Znajdź i potwierdź punkty kontrolne"
+  },
+  "archive": {
+    "title": "Archiwum wydarzeń",
+    "subtitle": "Przeszłe przygody i wspomnienia",
+    "viewPhotos": "Zobacz zdjęcia",
+    "people": "osób",
+    "pastEvents": "Przeszłe wydarzenia",
+    "totalParticipants": "Łączna liczba uczestników",
+    "yearsOfAdventures": "Lat przygód",
+    "loading": "Ładowanie archiwum...",
+    "noEvents": "Nie znaleziono wydarzeń w archiwum."
+  },
+  "registration": {
+    "title": "Rejestracja",
+    "howToRegister": "Jak się zarejestrować?",
+    "registerNow": "Zarejestruj się teraz",
+    "loginManage": "Zaloguj się / Zarządzaj"
+  },
+  "results": {
+    "title": "Wyniki",
+    "subtitle": "Sprawdź wyniki poprzednich zawodów",
+    "mostRecent": "Najnowsze",
+    "downloadResults": "Pobierz wyniki",
+    "viewParticipants": "Zobacz uczestników",
+    "resultsPlaceholder": "Wyniki będą dostępne wkrótce"
+  },
+  "about": {
+    "title": "O INO",
+    "subtitle": "Poznaj naszą organizację",
+    "whatIsIno": "Czym jest INO?",
+    "whatIsInoDesc": "INO to organizacja specjalizująca się w orientacji w terenie i przygodach na świeżym powietrzu.",
+    "howItWorks": "Jak to działa?",
+    "howItWorksDesc": "Organizujemy wydarzenia orienteeringowe z mapami, kompasami i punktami kontrolnymi.",
+    "whyJoin": "Dlaczego warto dołączyć?",
+    "whyJoinDesc": "Dołącz do społeczności miłośników przyrody i orientacji w terenie."
+  },
+  "footer": {
+    "contactUs": "Skontaktuj się z nami",
+    "quickLinks": "Szybkie linki",
+    "events": "Wydarzenia",
+    "results": "Wyniki",
+    "about": "O nas",
+    "register": "Rejestracja",
+    "followUs": "Śledź nas",
+    "newsletter": "Newsletter",
+    "newsletterDesc": "Bądź na bieżąco z naszymi wydarzeniami",
+    "subscribe": "Subskrybuj",
+    "copyright": "© 2024 INO. Wszystkie prawa zastrzeżone.",
+    "emailPlaceholder": "Twój email"
+  },
+  "common": {
+    "loading": "Ładowanie...",
+    "error": "Błąd",
+    "clickToZoom": "Kliknij aby powiększyć"
+  }
+}

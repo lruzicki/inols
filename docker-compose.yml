@@ -1,0 +1,62 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15
+    container_name: ino_postgres
+    environment:
+      POSTGRES_DB: ino_db
+      POSTGRES_USER: ino_user
+      POSTGRES_PASSWORD: ino_password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - ino_network
+
+  # FastAPI Application
+  api:
+    build: ./backend
+    container_name: ino_api
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: postgresql://ino_user:ino_password@postgres:5432/ino_db
+    depends_on:
+      - postgres
+    networks:
+      - ino_network
+    volumes:
+      - ./backend:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+    env_file:
+      - ./backend/.env
+
+  # Next.js Frontend
+  frontend:
+    build: .
+    container_name: ino_frontend
+    ports:
+      - "3000:3000"
+    env_file:
+      - .env.local
+    environment:
+      NEXTAUTH_URL: http://localhost:3000
+    depends_on:
+      - api
+    networks:
+      - ino_network
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    command: npm run dev
+
+volumes:
+  postgres_data:
+
+networks:
+  ino_network:
+    driver: bridge 

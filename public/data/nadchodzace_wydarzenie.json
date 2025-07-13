@@ -1,0 +1,63 @@
+{
+  "id": 1,
+  "name": "Forest Challenge 2024",
+  "date": "March 15, 2024",
+  "time": "9:00 AM",
+  "location": "Kampinos National Park",
+  "coordinates": {
+    "lat": 54.45776,
+    "lng": 18.484813
+  },
+  "image": "/placeholder.svg?height=200&width=300",
+  "description": "Navigate through ancient forests and discover hidden trails in this exciting orienteering adventure.",
+  "countdown": { "days": 12, "hours": 8, "minutes": 45 },
+  "price": { "general": 20, "scouts": 5 },
+  "startingInfo": {
+    "registrationTime": "8:00 - 8:45 AM",
+    "eventStart": "9:00 AM",
+    "locationName": "Kampinos National Park",
+    "locationDetails": "Main Entrance, Parking Area A",
+    "gpsCoords": "54.457760° N, 18.484813° E",
+    "schedule": [
+      {
+        "time": "8:00 - 8:45",
+        "activity": "Registration & Check-in",
+        "color": "blue"
+      },
+      {
+        "time": "9:00",
+        "activity": "Event Start - All Routes",
+        "color": "green"
+      },
+      {
+        "time": "12:00",
+        "activity": "First Finishers Expected",
+        "color": "yellow"
+      },
+      {
+        "time": "15:00",
+        "activity": "Results & Awards Ceremony",
+        "color": "orange"
+      },
+      {
+        "time": "16:00",
+        "activity": "Event Closure",
+        "color": "red"
+      }
+    ],
+    "eventDescription": [
+      {
+        "title": "Event Overview",
+        "paragraph": "Join us for an exciting orienteering adventure through the beautiful Kampinos National Park. This event features multiple difficulty levels suitable for beginners to advanced orienteers."
+      },
+      {
+        "title": "What to Expect",
+        "paragraph": "Navigate through diverse terrain including forests, meadows, and historical landmarks while testing your map reading and compass skills. All participants will receive detailed maps, checkpoint cards, and refreshments at the finish line."
+      },
+      {
+        "title": "Terrain & Challenges",
+        "paragraph": "The course features varied terrain with both technical navigation challenges and physical endurance tests. Expect to encounter forest paths, open meadows, and some elevation changes throughout the route."
+      }
+    ]
+  }
+}
