@@ -29,7 +29,12 @@ app = FastAPI(
 # Konfiguracja CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000", "http://localhost:3001"],  # Frontend URLs
+    allow_origins=[
+        "http://localhost:3000", 
+        "http://localhost:3001",
+        "https://ino.lesnaszkolka.org",
+        "https://test.lesnaszkolka.org"
+    ],  # Frontend URLs
     allow_credentials=True,
     allow_methods=["*"],  # Wszystkie metody HTTP
     allow_headers=["*"],  # Wszystkie nagłówki
