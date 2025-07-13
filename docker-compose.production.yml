@@ -34,6 +34,25 @@ services:
       - ./inols/backend/.env
     restart: unless-stopped
 
+  # FastAPI Backend (lsapka)
+  lsapka_api:
+    build: ./lsapka/backend
+    container_name: lsapka_api
+    ports:
+      - "8001:8001"
+    environment:
+      DATABASE_URL: postgresql://ino_user:ino_password@postgres:5432/ino_db
+    depends_on:
+      - postgres
+    networks:
+      - ino_network
+    volumes:
+      - ./lsapka/backend:/app
+    command: uvicorn main:app --host 0.0.0.0 --port 8001 --reload
+    env_file:
+      - ./lsapka/backend/.env
+    restart: unless-stopped
+
   # Next.js Frontend (inols)
   inols_web:
     build: ./inols
@@ -54,18 +73,19 @@ services:
     restart: unless-stopped
 
   # Next.js Frontend (lsapka)
-  lsapka_web:
+  lsapka:
     build: ./lsapka
     container_name: lsapka_frontend
-    expose:
-      - "3000"
+    ports:
+      - "3000:3000"
     env_file:
       - ./lsapka/.env.local
     environment:
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-default_secret_change_me}
+      API_BASE_URL: http://localhost:8001
       PORT: 3000
     depends_on:
-      - api
+      - lsapka_api
     networks:
       - ino_network
     restart: unless-stopped
@@ -82,8 +102,9 @@ services:
       - /etc/letsencrypt:/etc/letsencrypt:ro
     depends_on:
       - inols_web
-      - lsapka_web
+      - lsapka
       - api
+      - lsapka_api
     networks:
       - ino_network
     restart: unless-stopped
