@@ -90,7 +90,25 @@ export default function ArchiveCarousel() {
     loadArchiveData()
   }, [])
 
-  const itemsPerView = 3
+  // Responsive items per view
+  const [itemsPerView, setItemsPerView] = useState(3)
+  
+  useEffect(() => {
+    const updateItemsPerView = () => {
+      if (window.innerWidth < 768) { // mobile
+        setItemsPerView(1)
+      } else if (window.innerWidth < 1024) { // tablet
+        setItemsPerView(2)
+      } else { // desktop
+        setItemsPerView(3)
+      }
+    }
+    
+    updateItemsPerView()
+    window.addEventListener('resize', updateItemsPerView)
+    return () => window.removeEventListener('resize', updateItemsPerView)
+  }, [])
+  
   const maxIndex = Math.max(0, archiveEvents.length - itemsPerView)
 
   const nextSlide = () => {
@@ -131,7 +149,14 @@ export default function ArchiveCarousel() {
           style={{ transform: `translateX(-${currentIndex * (100 / itemsPerView)}%)` }}
         >
           {archiveEvents.map((event) => (
-            <div key={event.id} className="w-1/3 flex-shrink-0 px-3">
+            <div 
+              key={event.id} 
+              className={`flex-shrink-0 px-3 ${
+                itemsPerView === 1 ? 'w-full' : 
+                itemsPerView === 2 ? 'w-1/2' : 
+                'w-1/3'
+              }`}
+            >
               <Card className="overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer group">
                 <div className="relative h-64 overflow-hidden" onClick={() => handleImageClick(event.driveUrl)}>
                   <Image

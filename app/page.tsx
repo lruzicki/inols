@@ -721,7 +721,7 @@ export default function HomePage() {
               </div>
             ) : latestEvents.length > 0 ? (
               <Tabs defaultValue={`event-${latestEvents[0].id}`} className="w-full">
-                <TabsList className="grid w-full" style={{ gridTemplateColumns: `repeat(${Math.min(latestEvents.length, 3)}, 1fr)` }}>
+                <TabsList className="grid w-full grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
                   {latestEvents.slice(0, 3).map((event) => {
                     const eventDate = new Date(event.date)
                     const formattedDate = eventDate.toLocaleDateString('pl-PL', { 
