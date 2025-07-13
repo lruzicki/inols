@@ -119,10 +119,10 @@ async def get_current_user_info(current_user: User = Depends(get_current_user)):
 @app.post("/events", response_model=EventResponse)
 async def create_event(
     event_data: EventCreate,
-    event_service: EventService = Depends(get_event_service)
-    # current_user: User = Depends(require_roles(["admin", "organizer"]))  # Tymczasowo wyłączone
+    event_service: EventService = Depends(get_event_service),
+    current_user: User = Depends(get_current_user)
 ):
-    """Tworzy nowe wydarzenie (wymaga roli admin lub organizer)"""
+    """Tworzy nowe wydarzenie (wymaga zalogowania)"""
     try:
         # Konwertuj stringi na datetime dla domain object
         event_date = datetime.strptime(event_data.date, "%Y-%m-%d")
@@ -230,10 +230,10 @@ def list_all_events(
 async def update_event(
     event_id: int,
     event_data: EventCreate,
-    event_service: EventService = Depends(get_event_service)
-    # current_user: User = Depends(require_roles(["admin", "organizer"]))  # Tymczasowo wyłączone
+    event_service: EventService = Depends(get_event_service),
+    current_user: User = Depends(get_current_user)  # Sprawdza tylko czy użytkownik jest zalogowany
 ):
-    """Aktualizuje wydarzenie (wymaga roli admin lub organizer)"""
+    """Aktualizuje wydarzenie (wymaga zalogowania)"""
     try:
         # Konwertuj stringi na datetime dla domain object
         event_date = datetime.strptime(event_data.date, "%Y-%m-%d")
@@ -302,10 +302,10 @@ def delete_event(
 @app.post("/results", response_model=ResultResponse)
 async def create_result(
     result_data: ResultCreate,
-    result_service: ResultService = Depends(get_result_service)
-    # current_user: User = Depends(require_roles(["admin", "organizer"]))  # Tymczasowo wyłączone
+    result_service: ResultService = Depends(get_result_service),
+    current_user: User = Depends(get_current_user)  # Sprawdza tylko czy użytkownik jest zalogowany
 ):
-    """Dodaje nowy wynik (wymaga roli admin lub organizer)"""
+    """Dodaje nowy wynik (wymaga zalogowania)"""
     try:
         # Konwertuj Pydantic model na domain object
         result = Result(
@@ -362,10 +362,10 @@ def get_results_by_event(
 async def update_results_for_event(
     event_id: int,
     results_data: dict,
-    result_service: ResultService = Depends(get_result_service)
-    # current_user: User = Depends(require_roles(["admin", "organizer"]))  # Tymczasowo wyłączone
+    result_service: ResultService = Depends(get_result_service),
+    current_user: User = Depends(get_current_user)  # Sprawdza tylko czy użytkownik jest zalogowany
 ):
-    """Aktualizuje wszystkie wyniki dla wydarzenia (wymaga roli admin lub organizer)"""
+    """Aktualizuje wszystkie wyniki dla wydarzenia (wymaga zalogowania)"""
     try:
         # Usuń wszystkie istniejące wyniki dla tego wydarzenia
         result_service.delete_all_results_for_event(event_id)
