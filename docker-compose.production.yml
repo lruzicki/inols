@@ -64,7 +64,7 @@ services:
     environment:
       NEXTAUTH_URL: https://ino.lesnaszkolka.org
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-default_secret_change_me}
-      NEXT_PUBLIC_API_URL: https://ino.lesnaszkolka.org
+      NEXT_PUBLIC_API_URL: https://api.ino.lesnaszkolka.org
       PORT: 3001
     depends_on:
       - api
@@ -82,8 +82,8 @@ services:
       - ./lsapka/.env.local
     environment:
       NEXTAUTH_SECRET: ${NEXTAUTH_SECRET:-default_secret_change_me}
-      API_BASE_URL: https://test.lesnaszkolka.org
-      NEXT_PUBLIC_API_URL: https://test.lesnaszkolka.org
+      API_BASE_URL: https://api.lesnaszkolka.org
+      NEXT_PUBLIC_API_URL: https://api.lesnaszkolka.org
       PORT: 3000
     depends_on:
       - lsapka_api
