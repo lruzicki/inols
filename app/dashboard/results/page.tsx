@@ -76,9 +76,13 @@ export default function ResultsPage() {
         if (data.length > 0) {
           setSelectedEvent(data[0].id)
         }
+      } else {
+        console.error("Błąd podczas pobierania wydarzeń:", response.status, response.statusText)
+        setEvents([])
       }
     } catch (error) {
       console.error("Błąd podczas pobierania wydarzeń:", error)
+      setEvents([])
     } finally {
       setIsLoading(false)
     }
@@ -234,7 +238,28 @@ export default function ResultsPage() {
   const getSelectedEvent = () => events.find(e => e.id === selectedEvent)
 
   if (isLoading) {
-    return <div className="min-h-screen flex items-center justify-center">Ładowanie...</div>
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Ładowanie wyników...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (events.length === 0) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-gray-500 mb-4">Brak wydarzeń do wyświetlenia</p>
+          <p className="text-gray-400 text-sm mb-4">Sprawdź połączenie z API lub dodaj nowe wydarzenie</p>
+          <Button onClick={() => fetchEvents()} variant="outline">
+            Odśwież
+          </Button>
+        </div>
+      </div>
+    )
   }
 
   return (

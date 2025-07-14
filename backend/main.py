@@ -1,8 +1,11 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from typing import List, Dict
 from datetime import datetime
+from slowapi import Limiter, _rate_limit_exceeded_handler
+from slowapi.util import get_remote_address
+from slowapi.errors import RateLimitExceeded
 
 # Importy z naszych warstw
 from infrastructure.database import get_db, create_tables
@@ -19,12 +22,19 @@ from infrastructure.auth_service import AzureAuthService
 from middleware.auth_middleware import get_current_user, require_roles, require_admin
 from domain.user import User
 
+# Inicjalizacja rate limitera
+limiter = Limiter(key_func=get_remote_address)
+
 # Tworzenie aplikacji FastAPI
 app = FastAPI(
     title="INO API",
     description="API dla systemu Impreza na Orientację",
     version="1.0.0"
 )
+
+# Dodanie rate limitera do aplikacji
+app.state.limiter = limiter
+app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 
 # Konfiguracja CORS
 app.add_middleware(
@@ -117,7 +127,9 @@ async def get_current_user_info(current_user: User = Depends(get_current_user)):
 
 # Endpointy dla Event
 @app.post("/events", response_model=EventResponse)
+@limiter.limit("60/minute")
 async def create_event(
+    request: Request,
     event_data: EventCreate,
     event_service: EventService = Depends(get_event_service),
     current_user: User = Depends(get_current_user)
@@ -227,7 +239,9 @@ def list_all_events(
     ]
 
 @app.put("/events/{event_id}", response_model=EventResponse)
+@limiter.limit("60/minute")
 async def update_event(
+    request: Request,
     event_id: int,
     event_data: EventCreate,
     event_service: EventService = Depends(get_event_service),
@@ -283,7 +297,9 @@ async def update_event(
         raise HTTPException(status_code=400, detail=str(e))
 
 @app.delete("/events/{event_id}")
+@limiter.limit("60/minute")
 def delete_event(
+    request: Request,
     event_id: int,
     event_service: EventService = Depends(get_event_service),
     current_user: User = Depends(require_admin)
@@ -300,7 +316,9 @@ def delete_event(
 
 # Endpointy dla Result
 @app.post("/results", response_model=ResultResponse)
+@limiter.limit("60/minute")
 async def create_result(
+    request: Request,
     result_data: ResultCreate,
     result_service: ResultService = Depends(get_result_service),
     current_user: User = Depends(get_current_user)  # Sprawdza tylko czy użytkownik jest zalogowany
@@ -359,7 +377,9 @@ def get_results_by_event(
     return response
 
 @app.put("/results/{event_id}")
+@limiter.limit("60/minute")
 async def update_results_for_event(
+    request: Request,
     event_id: int,
     results_data: dict,
     result_service: ResultService = Depends(get_result_service),
@@ -387,7 +407,9 @@ async def update_results_for_event(
         raise HTTPException(status_code=400, detail=str(e))
 
 @app.delete("/results/{result_id}")
+@limiter.limit("60/minute")
 def delete_result(
+    request: Request,
     result_id: int,
     result_service: ResultService = Depends(get_result_service),
     current_user: User = Depends(require_admin)

@@ -29,6 +29,7 @@ import {
 import RegistrationButton from "@/components/registration-button"
 import ArchiveCarousel from "@/components/archive-carousel"
 import EventMap from "@/components/event-map"
+import { fetchWithFallback, fallbackEventData, fallbackResultsData } from "@/lib/api-utils"
 
 
 interface EventData {
@@ -171,72 +172,21 @@ export default function HomePage() {
   // Load event data from API
   useEffect(() => {
     const loadEventData = async () => {
-      try {
-        console.log("Loading event data...")
-        const apiUrl = `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/events`
-        console.log("API URL:", apiUrl)
-        
-        const response = await fetch(apiUrl, {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-        })
-        console.log("Response status:", response.status)
-        
-        if (response.ok) {
-          const data = await response.json()
-          console.log("Event data loaded:", data)
-          // Pobierz najnowsze wydarzenie (pierwsze z listy)
-          if (data && data.length > 0) {
-            setEventData(data[0])
-            setLatestEvents(data)
-          }
-        } else {
-          console.error("API response not ok:", response.status, response.statusText)
-          // Fallback to static data if API fails
-          setEventData({
-            id: 1,
-            name: "Przykładowe wydarzenie",
-            date: "2024-01-01",
-            categories: ["Open", "Junior"],
-            location: "Las miejski",
-            start_point_url: "#",
-            start_time: "10:00",
-            fee: 20,
-            registration_deadline: "2023-12-31",
-            registered_participants: 50,
-            google_maps_url: "#",
-            google_drive_url: "#",
-            deleted: false,
-            created_at: "2024-01-01",
-            updated_at: "2024-01-01"
-          })
-        }
-      } catch (error) {
-        console.error("Error loading event data:", error)
-        // Fallback to static data if API fails
-        setEventData({
-          id: 1,
-          name: "Przykładowe wydarzenie",
-          date: "2024-01-01",
-          categories: ["Open", "Junior"],
-          location: "Las miejski",
-          start_point_url: "#",
-          start_time: "10:00",
-          fee: 20,
-          registration_deadline: "2023-12-31",
-          registered_participants: 50,
-          google_maps_url: "#",
-          google_drive_url: "#",
-          deleted: false,
-          created_at: "2024-01-01",
-          updated_at: "2024-01-01"
-        })
-      } finally {
-        setLoading(false)
+      const result = await fetchWithFallback('/events', [fallbackEventData])
+      
+      if (result.data && result.data.length > 0) {
+        setEventData(result.data[0])
+        setLatestEvents(result.data)
+      } else {
+        setEventData(fallbackEventData)
+        setLatestEvents([fallbackEventData])
       }
+      
+      if (result.isFallback) {
+        console.warn("Using fallback data for events:", result.error)
+      }
+      
+      setLoading(false)
     }
 
     loadEventData()
@@ -247,32 +197,18 @@ export default function HomePage() {
     const loadResultsData = async () => {
       if (latestEvents.length === 0) return
 
-      try {
-        const resultsPromises = latestEvents.map(async (event) => {
-          try {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8000'}/results/${event.id}`)
-            if (response.ok) {
-              const data = await response.json()
-              return { eventId: event.id, results: data }
-            }
-            return { eventId: event.id, results: null }
-          } catch (error) {
-            console.error(`Error loading results for event ${event.id}:`, error)
-            return { eventId: event.id, results: null }
-          }
-        })
+      const resultsPromises = latestEvents.map(async (event) => {
+        const result = await fetchWithFallback(`/results/${event.id}`, fallbackResultsData)
+        return { eventId: event.id, results: result.data }
+      })
 
-        const results = await Promise.all(resultsPromises)
-        const resultsMap: {[key: number]: any} = {}
-        results.forEach(({ eventId, results }) => {
-          resultsMap[eventId] = results
-        })
-        setResultsData(resultsMap)
-      } catch (error) {
-        console.error("Error loading results data:", error)
-      } finally {
-        setResultsLoading(false)
-      }
+      const results = await Promise.all(resultsPromises)
+      const resultsMap: {[key: number]: any} = {}
+      results.forEach(({ eventId, results }) => {
+        resultsMap[eventId] = results
+      })
+      setResultsData(resultsMap)
+      setResultsLoading(false)
     }
 
     loadResultsData()
@@ -763,6 +699,7 @@ export default function HomePage() {
                             <div className="text-center py-8">
                               <Trophy className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                               <p className="text-gray-500 text-lg">Wyniki jeszcze nieopublikowane</p>
+                              <p className="text-gray-400 text-sm mt-2">Sprawdź ponownie później</p>
                         </div>
                           ) : (
                             <div className="space-y-6">
@@ -825,6 +762,7 @@ export default function HomePage() {
               <div className="text-center py-12">
                 <Trophy className="h-12 w-12 mx-auto mb-4 text-gray-300" />
                 <p className="text-gray-500">Brak wydarzeń do wyświetlenia</p>
+                <p className="text-gray-400 text-sm mt-2">Sprawdź połączenie z API</p>
               </div>
             )}
           </div>
