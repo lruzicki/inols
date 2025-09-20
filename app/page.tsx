@@ -103,7 +103,7 @@ export default function HomePage() {
       "about.title": "O INO",
       "about.subtitle": "Poznaj naszą organizację",
       "about.whatIsIno": "Czym są Chaszcze?",
-      "about.whatIsInoDesc": "CHASZCZE to impreza na orientację (InO) organizowana przez “Leśną Szkółkę” nieprzerwanie od 36 lat.",
+      "about.whatIsInoDesc": "CHASZCZE to impreza na orientację (InO) organizowana przez “Leśną Szkółkę” nieprzerwanie od 1989 roku.",
       "about.howItWorks": "Jak to działa?",
       "about.howItWorksDesc": "Otrzymujesz komplet map oraz kartę startową",
       "about.whyJoin": "Czego potrzebujesz?",
@@ -119,7 +119,7 @@ export default function HomePage() {
       "footer.newsletterDesc": "Bądź na bieżąco z naszymi wydarzeniami",
       "footer.emailPlaceholder": "Twój email",
       "footer.subscribe": "Subskrybuj",
-      "footer.copyright": "© 2024 INO. Wszystkie prawa zastrzeżone."
+      "footer.copyright": "© NKIH \"Leśna Szkółka\". Wszystkie prawa zastrzeżone."
     }
     return translations[key] || key
   }
