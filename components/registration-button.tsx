@@ -8,15 +8,19 @@ interface RegistrationButtonProps {
   size?: "default" | "sm" | "lg" | "icon"
   variant?: "default" | "destructive" | "outline" | "secondary" | "ghost" | "link"
   children?: React.ReactNode
+  registrationUrl?: string
 }
 
 export default function RegistrationButton({ 
   className = "", 
   size = "default", 
   variant = "default",
-  children 
+  children,
+  registrationUrl 
 }: RegistrationButtonProps) {
-  const registrationUrl = "https://docs.google.com/spreadsheets/d/13wAMcfu7gI0RtXIeh5yjQ6z1NV-lsTQlfCH18i23x0s/edit?gid=831341344#gid=831341344"
+  // Użyj przekazanego URL lub domyślnego
+  const defaultRegistrationUrl = "https://docs.google.com/spreadsheets/d/13wAMcfu7gI0RtXIeh5yjQ6z1NV-lsTQlfCH18i23x0s/edit?gid=831341344#gid=831341344"
+  const finalUrl = registrationUrl || defaultRegistrationUrl
 
   return (
     <Button
@@ -26,7 +30,7 @@ export default function RegistrationButton({
       className={className}
     >
       <a 
-        href={registrationUrl}
+        href={finalUrl}
         target="_blank"
         rel="noopener noreferrer"
         className="inline-flex items-center gap-2"

@@ -8,7 +8,6 @@ class EventCreate(BaseModel):
     date: str  # Format: "2024-06-15"
     categories: List[str]
     location: str
-    start_point_url: str
     start_time: str  # Format: "10:00"
     fee: Optional[float] = None
     registration_deadline: Optional[str] = None  # Format: "2024-06-10"
@@ -22,7 +21,6 @@ class EventResponse(BaseModel):
     date: str
     categories: List[str]
     location: str
-    start_point_url: str
     start_time: str
     fee: Optional[float] = None
     registration_deadline: Optional[str] = None

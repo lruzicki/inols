@@ -38,7 +38,6 @@ interface EventData {
   date: string
   categories: string[]
   location: string
-  start_point_url: string
   start_time: string
   fee?: number
   registration_deadline?: string
@@ -328,6 +327,7 @@ export default function HomePage() {
           <RegistrationButton
             size="lg"
             className="bg-green-600 hover:bg-green-700 text-white px-8 py-4 text-lg"
+            registrationUrl={eventData.google_drive_url}
           >
             <Compass className="mr-2 h-5 w-5" />
             {t("hero.cta")}
@@ -394,6 +394,7 @@ export default function HomePage() {
 
                     <RegistrationButton
                       className="w-full bg-green-600 hover:bg-green-700"
+                      registrationUrl={eventData.google_drive_url}
                     >
                       {t("upcomingEvents.detailsRegistration")}
                     </RegistrationButton>
@@ -493,17 +494,6 @@ export default function HomePage() {
                   )}
                   <div className="p-4 bg-gray-50">
                     <p className="font-semibold">{eventData.location}</p>
-                    <p className="text-gray-600">Punkt startowy</p>
-                    {eventData.start_point_url && (
-                      <a 
-                        href={eventData.start_point_url} 
-                        target="_blank" 
-                        rel="noopener noreferrer"
-                        className="text-sm text-green-600 hover:text-green-700"
-                      >
-                        Szczegóły punktu startowego →
-                      </a>
-                    )}
                   </div>
                 </CardContent>
               </Card>
@@ -631,6 +621,7 @@ export default function HomePage() {
               <RegistrationButton
                 size="lg"
                 className="bg-green-600 hover:bg-green-700"
+                registrationUrl={eventData.google_drive_url}
               >
                 <Compass className="mr-2 h-5 w-5" />
                 {t("registration.registerNow")}
@@ -831,7 +822,11 @@ export default function HomePage() {
                   </button>
                 </li>
                 <li>
-                  <RegistrationButton variant="link" className="hover:text-green-400 p-0 h-auto">
+                  <RegistrationButton 
+                    variant="link" 
+                    className="hover:text-green-400 p-0 h-auto"
+                    registrationUrl={eventData.google_drive_url}
+                  >
                     {t("footer.register")}
                   </RegistrationButton>
                 </li>

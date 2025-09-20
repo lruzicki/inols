@@ -20,7 +20,6 @@ interface Event {
   date: string
   categories: string[]
   location: string
-  start_point_url: string
   start_time: string
   fee?: number
   registration_deadline?: string
@@ -45,7 +44,6 @@ export default function NewEventPage() {
     date: "",
     categories: [],
     location: "",
-    start_point_url: "",
     start_time: "",
     fee: undefined,
     registration_deadline: "",
@@ -182,16 +180,6 @@ export default function NewEventPage() {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <Label htmlFor="start_point_url">URL punktu startowego *</Label>
-                  <Input
-                    id="start_point_url"
-                    type="url"
-                    value={formData.start_point_url}
-                    onChange={(e) => setFormData({...formData, start_point_url: e.target.value})}
-                    required
-                  />
-                </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="fee">Opłata (zł)</Label>

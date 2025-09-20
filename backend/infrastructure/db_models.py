@@ -13,7 +13,6 @@ class EventModel(Base):
     date = Column(DateTime, nullable=False)
     categories = Column(String, nullable=False)  # JSON string
     location = Column(String, nullable=False)
-    start_point_url = Column(String, nullable=False)
     start_time = Column(String, nullable=False)
     fee = Column(Float, nullable=True)
     registration_deadline = Column(DateTime, nullable=True)

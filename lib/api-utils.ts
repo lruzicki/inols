@@ -79,7 +79,6 @@ export const fallbackEventData = {
   date: "2024-01-01",
   categories: ["Open", "Junior"],
   location: "Las miejski",
-  start_point_url: "#",
   start_time: "10:00",
   fee: 20,
   registration_deadline: "2023-12-31",

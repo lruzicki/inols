@@ -13,7 +13,6 @@ class Event:
         date: datetime,
         categories: List[str],
         location: str,
-        start_point_url: str,
         start_time: str,
         fee: Optional[float] = None,
         registration_deadline: Optional[datetime] = None,
@@ -28,7 +27,6 @@ class Event:
         self.date = date
         self.categories = categories
         self.location = location
-        self.start_point_url = start_point_url
         self.start_time = start_time
         self.fee = fee
         self.registration_deadline = registration_deadline

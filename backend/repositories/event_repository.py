@@ -20,7 +20,6 @@ class SqlAlchemyEventRepository:
             date=event.date,
             categories=json.dumps(event.categories),
             location=event.location,
-            start_point_url=event.start_point_url,
             start_time=event.start_time,
             fee=event.fee,
             registration_deadline=event.registration_deadline,
@@ -70,7 +69,6 @@ class SqlAlchemyEventRepository:
         db_event.date = event.date
         db_event.categories = json.dumps(event.categories)
         db_event.location = event.location
-        db_event.start_point_url = event.start_point_url
         db_event.start_time = event.start_time
         db_event.fee = event.fee
         db_event.registration_deadline = event.registration_deadline
@@ -92,7 +90,6 @@ class SqlAlchemyEventRepository:
             date=db_event.date,
             categories=json.loads(db_event.categories),
             location=db_event.location,
-            start_point_url=db_event.start_point_url,
             start_time=db_event.start_time,
             fee=db_event.fee,
             registration_deadline=db_event.registration_deadline,
